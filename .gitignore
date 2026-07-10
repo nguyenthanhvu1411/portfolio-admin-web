@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Vite build
+dist/
+dist-ssr/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.production
+
+# Giữ file mẫu
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
