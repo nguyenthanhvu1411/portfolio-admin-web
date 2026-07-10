@@ -2,7 +2,10 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/stores/authStore';
 import type { LoginResponse } from '@/types';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL ?? 'https://localhost:7165';
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+if (!baseURL) {
+  throw new Error("Thiếu cấu hình VITE_API_BASE_URL");
+}
 export const httpClient = axios.create({ baseURL, withCredentials: true, headers: { Accept: 'application/json' } });
 const refreshClient = axios.create({ baseURL, withCredentials: true, headers: { Accept: 'application/json' } });
 let refreshPromise: Promise<string> | null = null;
