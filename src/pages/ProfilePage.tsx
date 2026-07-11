@@ -40,7 +40,8 @@ import {
 import { api } from '@/api';
 import { FileUploadButton, PageHeader } from '@/components/Common';
 import type { ProfileRequest } from '@/types';
-import { absoluteFileUrl, getErrorMessage } from '@/utils';
+import { getErrorMessage } from '@/utils';
+import { resolveFileUrl, validateImageFile } from '@/utils/file-url';
 
 const { TextArea } = Input;
 
@@ -143,15 +144,15 @@ export function ProfilePage() {
     onError(error) { message.error(getErrorMessage(error)); }
   });
 
-  const bannerUrl = absoluteFileUrl(
+  const bannerUrl = resolveFileUrl(
     query.data?.bannerUrl,
   );
 
-  const avatarUrl = absoluteFileUrl(
+  const avatarUrl = resolveFileUrl(
     query.data?.avatarUrl,
   );
 
-  const cvUrl = absoluteFileUrl(
+  const cvUrl = resolveFileUrl(
     query.data?.cvUrl,
   );
 
@@ -300,12 +301,17 @@ export function ProfilePage() {
                   }
                   accept="image/jpeg,image/png,image/webp"
                   loading={upload.isPending}
-                  onFile={(file) =>
+                  onFile={(file) => {
+                    const error = validateImageFile(file);
+                    if (error) {
+                      message.error(error);
+                      return;
+                    }
                     upload.mutate({
                       type: 'banner',
                       file,
-                    })
-                  }
+                    });
+                  }}
                 />
 
                 {bannerUrl ? (
@@ -398,12 +404,17 @@ export function ProfilePage() {
                     }
                     accept="image/jpeg,image/png,image/webp"
                     loading={upload.isPending}
-                    onFile={(file) =>
+                    onFile={(file) => {
+                      const error = validateImageFile(file);
+                      if (error) {
+                        message.error(error);
+                        return;
+                      }
                       upload.mutate({
                         type: 'avatar',
                         file,
-                      })
-                    }
+                      });
+                    }}
                   />
 
                   {avatarUrl ? (
