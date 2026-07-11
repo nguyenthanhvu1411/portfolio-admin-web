@@ -30,11 +30,11 @@ export function EducationPage() {
     { title: 'Thời gian', render: (_: unknown, row: EducationDto) => `${row.startYear ?? '—'} – ${row.endYear ?? 'Hiện tại'}` },
     { title: 'GPA', dataIndex: 'gpa', render: (value?: string) => value || '—' },
     { title: 'Hiển thị', dataIndex: 'isActive', render: (value: boolean) => <ActiveTag active={value} /> },
-    { title: 'Thao tác', width: 110, render: (_: unknown, row: EducationDto) => <Space><Button size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><Popconfirm title="Ẩn học vấn này?" onConfirm={() => remove.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
+    { title: 'Thao tác', width: 110, render: (_: unknown, row: EducationDto) => <Space><Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><Popconfirm title="Ẩn học vấn này?" onConfirm={() => remove.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
   ];
 
   return <>
-    <PageHeader title="Học vấn" description="Quản lý trường học, chuyên ngành, bằng cấp và GPA." actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm học vấn</Button>} />
+    <PageHeader title="Học vấn" description="Quản lý trường học, chuyên ngành, bằng cấp và GPA." actions={<Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm học vấn</Button>} />
     <Table rowKey="id" className="page-card" loading={query.isLoading} dataSource={query.data ?? []} columns={columns} pagination={false} />
     <Modal open={open} title={editing ? 'Cập nhật học vấn' : 'Thêm học vấn'} onCancel={() => setOpen(false)} onOk={() => form.submit()} okText="Lưu" cancelText="Hủy" confirmLoading={save.isPending} width={720} destroyOnClose>
       <Form form={form} layout="vertical" onFinish={(values) => save.mutate(values)}>

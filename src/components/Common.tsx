@@ -47,7 +47,7 @@ export function FileUploadButton({
 
   return (
     <Upload {...props}>
-      <Button icon={<UploadOutlined />} loading={loading}>{label}</Button>
+      <Button title="Tải lên" icon={<UploadOutlined />} loading={loading}>{label}</Button>
     </Upload>
   );
 }

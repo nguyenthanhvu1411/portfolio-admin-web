@@ -67,15 +67,15 @@ export function UsersPage() {
     {
       title: 'Thao tác', fixed: 'right' as const, width: 155,
       render: (_: unknown, row: UserDto) => isSuperAdmin ? <Space>
-        <Button size="small" icon={<EditOutlined />} onClick={() => showForm(row)} />
-        <Button size="small" icon={row.status === UserStatus.Locked ? <UnlockOutlined /> : <LockOutlined />} onClick={() => toggle.mutate({ id: row.id, locked: row.status === UserStatus.Locked })} />
-        <Button size="small" icon={<KeyOutlined />} onClick={() => { setResetUser(row); setPasswordOpen(true); }} />
+        <Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => showForm(row)} />
+        <Button title="Khóa/Mở khóa" size="small" icon={row.status === UserStatus.Locked ? <UnlockOutlined /> : <LockOutlined />} onClick={() => toggle.mutate({ id: row.id, locked: row.status === UserStatus.Locked })} />
+        <Button title="Đổi mật khẩu" size="small" icon={<KeyOutlined />} onClick={() => { setResetUser(row); setPasswordOpen(true); }} />
       </Space> : <TypographyText />
     }
   ];
 
   return <>
-    <PageHeader title="Tài khoản quản trị" description="Quản lý Admin, SuperAdmin và trạng thái đăng nhập." actions={isSuperAdmin ? <Button type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm tài khoản</Button> : undefined} />
+    <PageHeader title="Tài khoản quản trị" description="Quản lý Admin, SuperAdmin và trạng thái đăng nhập." actions={isSuperAdmin ? <Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm tài khoản</Button> : undefined} />
     <Card className="page-card" style={{ marginBottom: 16 }}><Row gutter={[12, 12]}><Col xs={24} md={16}><Input.Search allowClear placeholder="Tìm họ tên hoặc email..." onSearch={setKeyword} /></Col><Col xs={24} md={8}><Select allowClear style={{ width: '100%' }} placeholder="Tất cả trạng thái" options={[{ value: UserStatus.Active, label: 'Hoạt động' }, { value: UserStatus.Locked, label: 'Bị khóa' }, { value: UserStatus.Inactive, label: 'Ngưng hoạt động' }]} onChange={setStatus} /></Col></Row></Card>
     <Table rowKey="id" className="page-card" loading={query.isLoading} dataSource={query.data ?? []} columns={columns} scroll={{ x: 900 }} pagination={false} />
 

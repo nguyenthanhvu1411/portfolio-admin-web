@@ -39,16 +39,16 @@ export function BlogsPage() {
     {
       title: 'Thao tác', fixed: 'right' as const, width: 190,
       render: (_: unknown, row: BlogDto) => <Space>
-        <Button size="small" icon={<EditOutlined />} onClick={() => navigate(`/blogs/${row.id}/edit`)} />
+        <Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => navigate(`/blogs/${row.id}/edit`)} />
         <Button size="small" icon={<SendOutlined />} title={row.status === BlogStatus.Published ? 'Ẩn bài' : 'Đăng bài'} onClick={() => action.mutate({ id: row.id, type: row.status === BlogStatus.Published ? 'unpublish' : 'publish' })} />
-        <Button size="small" icon={<StarOutlined />} onClick={() => action.mutate({ id: row.id, type: 'featured' })} />
-        <Popconfirm title="Ẩn bài viết này?" onConfirm={() => action.mutate({ id: row.id, type: 'delete' })}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
+        <Button title="Nổi bật" size="small" icon={<StarOutlined />} onClick={() => action.mutate({ id: row.id, type: 'featured' })} />
+        <Popconfirm title="Ẩn bài viết này?" onConfirm={() => action.mutate({ id: row.id, type: 'delete' })}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
       </Space>
     }
   ];
 
   return <>
-    <PageHeader title="Quản lý bài viết" description="Soạn thảo, xuất bản và quản lý nội dung Blog." actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/blogs/new')}>Viết bài</Button>} />
+    <PageHeader title="Quản lý bài viết" description="Soạn thảo, xuất bản và quản lý nội dung Blog." actions={<Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => navigate('/blogs/new')}>Viết bài</Button>} />
     <Card className="page-card" style={{ marginBottom: 16 }}><Row gutter={[12, 12]}>
       <Col xs={24} md={10}><Input.Search allowClear placeholder="Tìm tiêu đề, slug hoặc nội dung..." onSearch={(value) => { setKeyword(value); setPage(1); }} /></Col>
       <Col xs={24} md={7}><Select allowClear style={{ width: '100%' }} placeholder="Tất cả trạng thái" options={[{ value: BlogStatus.Draft, label: 'Bản nháp' }, { value: BlogStatus.Published, label: 'Đã xuất bản' }, { value: BlogStatus.Hidden, label: 'Đã ẩn' }]} onChange={(value) => { setStatus(value); setPage(1); }} /></Col>

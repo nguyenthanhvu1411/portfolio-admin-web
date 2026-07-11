@@ -44,11 +44,11 @@ export function CertificatesPage() {
     { title: 'Ngày hết hạn', dataIndex: 'expiryDate', render: (value?: string) => formatDate(value) },
     { title: 'Credential', render: (_: unknown, row: CertificateDto) => row.credentialUrl ? <a href={row.credentialUrl} target="_blank" rel="noreferrer"><LinkOutlined /> Xem</a> : row.credentialId || '—' },
     { title: 'Hiển thị', dataIndex: 'isActive', render: (value: boolean) => <ActiveTag active={value} /> },
-    { title: 'Thao tác', fixed: 'right' as const, width: 190, render: (_: unknown, row: CertificateDto) => <Space><Button size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><FileUploadButton label="Ảnh" accept="image/jpeg,image/png,image/webp" loading={upload.isPending} onFile={(file) => upload.mutate({ id: row.id, file })} /><Popconfirm title="Ẩn chứng chỉ này?" onConfirm={() => remove.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
+    { title: 'Thao tác', fixed: 'right' as const, width: 190, render: (_: unknown, row: CertificateDto) => <Space><Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><FileUploadButton label="Ảnh" accept="image/jpeg,image/png,image/webp" loading={upload.isPending} onFile={(file) => upload.mutate({ id: row.id, file })} /><Popconfirm title="Ẩn chứng chỉ này?" onConfirm={() => remove.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
   ];
 
   return <>
-    <PageHeader title="Chứng chỉ" description="Quản lý chứng chỉ, credential và hình ảnh minh chứng." actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm chứng chỉ</Button>} />
+    <PageHeader title="Chứng chỉ" description="Quản lý chứng chỉ, credential và hình ảnh minh chứng." actions={<Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm chứng chỉ</Button>} />
     <Card className="page-card" style={{ marginBottom: 16 }}><Input.Search allowClear placeholder="Tìm tên chứng chỉ hoặc tổ chức..." style={{ maxWidth: 420 }} onSearch={setKeyword} /></Card>
     <Table rowKey="id" className="page-card" loading={query.isLoading} dataSource={query.data ?? []} columns={columns} scroll={{ x: 1050 }} pagination={false} locale={{ emptyText: 'Chưa có chứng chỉ.' }} />
     <Modal open={open} title={editing ? 'Cập nhật chứng chỉ' : 'Thêm chứng chỉ'} onCancel={() => setOpen(false)} onOk={() => form.submit()} okText="Lưu" cancelText="Hủy" confirmLoading={save.isPending} width={720} destroyOnClose>

@@ -45,7 +45,7 @@ export function BlogFormPage() {
   };
 
   return <>
-    <PageHeader title={blogId ? 'Cập nhật bài viết' : 'Viết bài mới'} description="Soạn nội dung, gắn danh mục, tags và thumbnail." actions={<Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/blogs')}>Quay lại</Button>} />
+    <PageHeader title={blogId ? 'Cập nhật bài viết' : 'Viết bài mới'} description="Soạn nội dung, gắn danh mục, tags và thumbnail." actions={<Button title="Quay lại" icon={<ArrowLeftOutlined />} onClick={() => navigate('/blogs')}>Quay lại</Button>} />
     <Row gutter={[16, 16]}>
       <Col xs={24} xl={17}>
         <Card className="page-card" loading={blog.isLoading}>
@@ -69,8 +69,8 @@ export function BlogFormPage() {
             {blog.data?.thumbnailUrl ? <Image width="100%" src={absoluteFileUrl(blog.data.thumbnailUrl)} /> : <div className="asset-preview" />}
             <div style={{ marginTop: 12 }}><FileUploadButton label={blogId ? 'Thay thumbnail' : 'Lưu bài trước'} accept="image/jpeg,image/png,image/webp" loading={upload.isPending} onFile={(file) => upload.mutate(file)} /></div>
           </Card>
-          <Card title="Danh mục Blog" className="page-card" extra={<Button size="small" type="primary" icon={<PlusOutlined />} onClick={() => showCategory()}>Thêm</Button>}>
-            <List dataSource={categories.data ?? []} renderItem={(item) => <List.Item actions={[<Button size="small" onClick={() => showCategory(item)}>Sửa</Button>, <Popconfirm title="Chỉ xóa được danh mục chưa có bài viết. Tiếp tục?" onConfirm={() => removeCategory.mutate(item.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm>]}><List.Item.Meta title={item.name} description={`${item.blogCount} bài viết · ${item.isActive ? 'Đang hoạt động' : 'Đã ẩn'}`} /></List.Item>} />
+          <Card title="Danh mục Blog" className="page-card" extra={<Button title="Thêm mới" size="small" type="primary" icon={<PlusOutlined />} onClick={() => showCategory()}>Thêm</Button>}>
+            <List dataSource={categories.data ?? []} renderItem={(item) => <List.Item actions={[<Button size="small" onClick={() => showCategory(item)}>Sửa</Button>, <Popconfirm title="Chỉ xóa được danh mục chưa có bài viết. Tiếp tục?" onConfirm={() => removeCategory.mutate(item.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm>]}><List.Item.Meta title={item.name} description={`${item.blogCount} bài viết · ${item.isActive ? 'Đang hoạt động' : 'Đã ẩn'}`} /></List.Item>} />
           </Card>
         </Space>
       </Col>

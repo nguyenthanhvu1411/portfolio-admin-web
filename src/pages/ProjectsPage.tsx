@@ -46,18 +46,18 @@ export function ProjectsPage() {
     {
       title: 'Thao tác', fixed: 'right' as const, width: 210,
       render: (_: unknown, row: ProjectDto) => <Space>
-        <Button size="small" icon={<EditOutlined />} onClick={() => navigate(`/projects/${row.id}/edit`)} />
+        <Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => navigate(`/projects/${row.id}/edit`)} />
         <FileUploadButton label="" accept="image/jpeg,image/png,image/webp" loading={upload.isPending} onFile={(file) => upload.mutate({ id: row.id, file })} />
-        <Button size="small" icon={<StarOutlined />} onClick={() => toggle.mutate({ id: row.id, type: 'featured' })} />
+        <Button title="Nổi bật" size="small" icon={<StarOutlined />} onClick={() => toggle.mutate({ id: row.id, type: 'featured' })} />
         <Button size="small" onClick={() => toggle.mutate({ id: row.id, type: 'active' })}>{row.isActive ? 'Ẩn' : 'Bật'}</Button>
-        <Popconfirm title="Ẩn dự án này?" onConfirm={() => remove.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
+        <Popconfirm title="Ẩn dự án này?" onConfirm={() => remove.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
       </Space>
     }
   ];
 
   return (
     <>
-      <PageHeader title="Quản lý dự án" description="Quản lý nội dung, công nghệ, ảnh và trạng thái dự án." actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/projects/new')}>Thêm dự án</Button>} />
+      <PageHeader title="Quản lý dự án" description="Quản lý nội dung, công nghệ, ảnh và trạng thái dự án." actions={<Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => navigate('/projects/new')}>Thêm dự án</Button>} />
       <Card className="page-card" style={{ marginBottom: 16 }}>
         <Row gutter={[12, 12]}>
           <Col xs={24} md={10}><Input.Search allowClear placeholder="Tìm tên, slug hoặc mô tả..." onSearch={(value) => { setKeyword(value); setPage(1); }} /></Col>

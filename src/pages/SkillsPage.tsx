@@ -110,10 +110,10 @@ export function SkillsPage() {
     {
       title: 'Thao tác', fixed: 'right' as const, width: 170,
       render: (_: unknown, row: SkillDto) => <Space>
-        <Button size="small" icon={<EditOutlined />} onClick={() => openSkill(row)} />
-        <Button size="small" icon={<StarOutlined />} onClick={() => toggle.mutate({ id: row.id, type: 'featured' })} />
+        <Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => openSkill(row)} />
+        <Button title="Nổi bật" size="small" icon={<StarOutlined />} onClick={() => toggle.mutate({ id: row.id, type: 'featured' })} />
         <Button size="small" onClick={() => toggle.mutate({ id: row.id, type: 'active' })}>{row.isActive ? 'Ẩn' : 'Bật'}</Button>
-        <Popconfirm title="Xóa kỹ năng này?" onConfirm={() => removeSkill.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
+        <Popconfirm title="Xóa kỹ năng này?" onConfirm={() => removeSkill.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
       </Space>
     }
   ];
@@ -128,15 +128,15 @@ export function SkillsPage() {
     {
       title: 'Thao tác', width: 120,
       render: (_: unknown, row: SkillCategoryDto) => <Space>
-        <Button size="small" icon={<EditOutlined />} onClick={() => openCategory(row)} />
-        <Popconfirm title="Chỉ xóa được nhóm chưa có kỹ năng. Tiếp tục?" onConfirm={() => removeCategory.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
+        <Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => openCategory(row)} />
+        <Popconfirm title="Chỉ xóa được nhóm chưa có kỹ năng. Tiếp tục?" onConfirm={() => removeCategory.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm>
       </Space>
     }
   ];
 
   return (
     <>
-      <PageHeader title="Quản lý kỹ năng" description="Quản lý nhóm, trình độ, thứ tự và trạng thái hiển thị kỹ năng." actions={<Space><Button icon={<PlusOutlined />} onClick={() => openCategory()}>Thêm nhóm</Button><Button type="primary" icon={<PlusOutlined />} onClick={() => openSkill()}>Thêm kỹ năng</Button></Space>} />
+      <PageHeader title="Quản lý kỹ năng" description="Quản lý nhóm, trình độ, thứ tự và trạng thái hiển thị kỹ năng." actions={<Space><Button title="Thêm mới" icon={<PlusOutlined />} onClick={() => openCategory()}>Thêm nhóm</Button><Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => openSkill()}>Thêm kỹ năng</Button></Space>} />
       <Tabs items={[
         {
           key: 'skills', label: 'Danh sách kỹ năng', children: <>

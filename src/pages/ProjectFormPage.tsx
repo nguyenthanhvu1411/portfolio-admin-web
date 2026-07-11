@@ -77,7 +77,7 @@ export function ProjectFormPage() {
 
   return (
     <>
-      <PageHeader title={projectId ? 'Cập nhật dự án' : 'Thêm dự án'} description="Thông tin chi tiết, công nghệ và ảnh minh họa." actions={<Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/projects')}>Quay lại</Button>} />
+      <PageHeader title={projectId ? 'Cập nhật dự án' : 'Thêm dự án'} description="Thông tin chi tiết, công nghệ và ảnh minh họa." actions={<Button title="Quay lại" icon={<ArrowLeftOutlined />} onClick={() => navigate('/projects')}>Quay lại</Button>} />
       <Card className="page-card" loading={project.isLoading}>
         <Form form={form} layout="vertical" initialValues={{ status: ProjectStatus.Planning, isActive: true, isFeatured: false, skillIds: [] }} onFinish={(values) => save.mutate(values)}>
           <Row gutter={16}>
@@ -105,7 +105,7 @@ export function ProjectFormPage() {
           {project.data?.images.map((image) => <Col xs={24} sm={12} lg={8} key={image.id}>
             <Card size="small" cover={<Image preview src={absoluteFileUrl(image.imageUrl)} style={{ aspectRatio: '16/9', objectFit: 'cover' }} />} actions={[
               <Button type="text" icon={<StarOutlined />} title="Đặt thumbnail" onClick={() => gallery.mutate({ action: 'thumbnail', imageId: image.id })} />,
-              <Popconfirm title="Xóa ảnh này?" onConfirm={() => gallery.mutate({ action: 'delete', imageId: image.id })}><Button type="text" danger icon={<DeleteOutlined />} /></Popconfirm>
+              <Popconfirm title="Xóa ảnh này?" onConfirm={() => gallery.mutate({ action: 'delete', imageId: image.id })}><Button title="Xóa" type="text" danger icon={<DeleteOutlined />} /></Popconfirm>
             ]}>
               <Card.Meta title={image.isThumbnail ? <Space>Thumbnail <StarOutlined style={{ color: '#d97706' }} /></Space> : `Ảnh #${image.id}`} description={image.caption || 'Không có chú thích'} />
             </Card>

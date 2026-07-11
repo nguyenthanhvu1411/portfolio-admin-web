@@ -63,11 +63,11 @@ export function ExperiencesPage() {
     { title: 'Thời gian', render: (_: unknown, row: ExperienceDto) => `${formatDate(row.startDate)} – ${row.isCurrent ? 'Hiện tại' : formatDate(row.endDate)}` },
     { title: 'Công nghệ', dataIndex: 'technologies', ellipsis: true, render: (value?: string) => value || '—' },
     { title: 'Hiển thị', dataIndex: 'isActive', render: (value: boolean) => <ActiveTag active={value} /> },
-    { title: 'Thao tác', width: 110, render: (_: unknown, row: ExperienceDto) => <Space><Button size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><Popconfirm title="Ẩn kinh nghiệm này?" onConfirm={() => remove.mutate(row.id)}><Button danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
+    { title: 'Thao tác', width: 110, render: (_: unknown, row: ExperienceDto) => <Space><Button title="Chỉnh sửa" size="small" icon={<EditOutlined />} onClick={() => showForm(row)} /><Popconfirm title="Ẩn kinh nghiệm này?" onConfirm={() => remove.mutate(row.id)}><Button title="Xóa" danger size="small" icon={<DeleteOutlined />} /></Popconfirm></Space> }
   ];
 
   return <>
-    <PageHeader title="Kinh nghiệm làm việc" description="Quản lý quá trình làm việc, thực tập và công nghệ sử dụng." actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm kinh nghiệm</Button>} />
+    <PageHeader title="Kinh nghiệm làm việc" description="Quản lý quá trình làm việc, thực tập và công nghệ sử dụng." actions={<Button title="Thêm mới" type="primary" icon={<PlusOutlined />} onClick={() => showForm()}>Thêm kinh nghiệm</Button>} />
     <Table rowKey="id" className="page-card" loading={query.isLoading} dataSource={query.data ?? []} columns={columns} scroll={{ x: 900 }} pagination={false} />
     <Modal open={open} title={editing ? 'Cập nhật kinh nghiệm' : 'Thêm kinh nghiệm'} onCancel={() => setOpen(false)} onOk={() => form.submit()} okText="Lưu" cancelText="Hủy" confirmLoading={save.isPending} width={760} destroyOnClose>
       <Form form={form} layout="vertical" onFinish={(values) => save.mutate(values)}>
